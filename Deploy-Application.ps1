@@ -63,15 +63,15 @@ Try {
 	##* VARIABLE DECLARATION
 	##*===============================================
 	## Variables: Application
-	[string]$appVendor = ''
-	[string]$appName = ''
-	[string]$appVersion = ''
-	[string]$appArch = ''
+	[string]$appVendor = 'SAP'
+	[string]$appName = 'GUI Lite'
+	[string]$appVersion = '750 P62'
+	[string]$appArch = 'x86'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
 	[string]$appScriptVersion = '3.7.0.1'
-	[string]$appScriptDate = '03/22/2018'
-	[string]$appScriptAuthor = '<author name>'
+	[string]$appScriptDate = '07/15/2019'
+	[string]$appScriptAuthor = 'Truong Nguyen'
 	##*===============================================
 	## Variables: Install Titles (Only set here to override defaults set by the toolkit)
 	[string]$installName = ''
@@ -119,7 +119,7 @@ Try {
 		[string]$installPhase = 'Pre-Installation'
 
 		## Show Welcome Message, close Internet Explorer if needed, verify there is enough disk space to complete the install, and persist the prompt
-		Show-InstallationWelcome -CloseApps 'iexplore' -CheckDiskSpace -PersistPrompt
+		Show-InstallationWelcome -CloseApps 'saplogon' -CheckDiskSpace -PersistPrompt
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -139,6 +139,7 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
+		Execute-Process -Path "$dirFiles\Setup\NwSapSetup.exe" -Parameters "/product:`"SAPGUI_750_LITE`" /silent"
 
 
 		##*===============================================
@@ -147,6 +148,7 @@ Try {
 		[string]$installPhase = 'Post-Installation'
 
 		## <Perform Post-Installation tasks here>
+		Remove-File -Path "C:\Users\Public\Desktop\SAP Logon.lnk"
 
 		## Display a message at the end of the install
 		If (-not $useDefaultMsi) {
@@ -161,7 +163,7 @@ Try {
 		[string]$installPhase = 'Pre-Uninstallation'
 
 		## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
-		Show-InstallationWelcome -CloseApps 'iexplore' -CloseAppsCountdown 60
+		Show-InstallationWelcome -CloseApps 'saplogon' -CloseAppsCountdown 60
 
 		## Show Progress Message (with the default message)
 		Show-InstallationProgress
@@ -181,7 +183,7 @@ Try {
 		}
 
 		# <Perform Uninstallation tasks here>
-
+		Execute-Process -Path "$dirFiles\Setup\NwSapSetup.exe" -Parameters "/uninstall /all /silent"
 
 		##*===============================================
 		##* POST-UNINSTALLATION
