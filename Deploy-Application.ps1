@@ -64,8 +64,8 @@ Try {
 	##*===============================================
 	## Variables: Application
 	[string]$appVendor = 'SAP'
-	[string]$appName = 'GUI Lite'
-	[string]$appVersion = '750 P62'
+	[string]$appName = 'GUI'
+	[string]$appVersion = '750 P62 Lite'
 	[string]$appArch = 'x86'
 	[string]$appLang = 'EN'
 	[string]$appRevision = '01'
@@ -139,7 +139,7 @@ Try {
 		}
 
 		## <Perform Installation tasks here>
-		Execute-Process -Path "$dirFiles\Setup\NwSapSetup.exe" -Parameters "/product:`"SAPGUI_750_LITE`" /silent"
+		Execute-Process -Path "$dirFiles\Setup\NwSapSetup.exe" -Parameters "/package:`"SAPGUI_750_LITE`" /silent"
 
 
 		##*===============================================
